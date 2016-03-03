@@ -11,7 +11,7 @@ public class EnemyTank : Tank
     void Start()
     {
         rotation = transform.rotation;
-        //player = GameObject.Find("Tank").transform;
+        //player = GameObject.Find("PlayerTank").transform;
     }
 
     void Update()
@@ -35,9 +35,9 @@ public class EnemyTank : Tank
         timeTilNextFire -= Time.deltaTime;
     }
 
-    public override void OnCollisionEnter2D(Collision2D other)
+    public void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Bullet" || other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "PlayerBullet" || other.gameObject.tag == "Player")
         {
             Destroy(gameObject);
         }

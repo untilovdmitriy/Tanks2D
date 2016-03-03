@@ -22,31 +22,8 @@ public class Tank : MonoBehaviour
     }
 
     void Update()
-    {
-        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
-        {
-            Move(3);
-        }
-        else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
-        {
-            Move(0);
-        }
-        else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
-        {
-            Move(2);
-        }
-        else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-        {
-            Move(1);
-        }
-
-        //выстрел
-        if ((Input.GetKey(KeyCode.Space) && timeTilNextFire < 0) || (Input.GetKey(KeyCode.Mouse0) && timeTilNextFire < 0))
-        {
-            timeTilNextFire = timeBetweenFires;
-            Shoot();
-        }
-        timeTilNextFire -= Time.deltaTime;
+    {  
+    
     }
 
     protected void Move(int dir)
@@ -84,6 +61,9 @@ public class Tank : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// выстрел в направлении движения
+    /// </summary>
     protected void Shoot()
     {
         // Высчитываем позицию танка
@@ -91,13 +71,5 @@ public class Tank : MonoBehaviour
         float posY = this.transform.position.y + (Mathf.Sin((transform.localEulerAngles.z - 90) * Mathf.Deg2Rad) * -bulletDistance);
         // Создаём пулю
         Instantiate(bullet, new Vector3(posX, posY, 0), this.transform.rotation);
-    }
-
-    public virtual void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "EnemyBullet" || other.gameObject.tag == "Enemy")
-        {
-            Destroy(gameObject);
-        }
     }
 }
